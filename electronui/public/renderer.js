@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   const root = document.getElementById('root');
   const title = document.createElement('h1');
   title.textContent = 'LinuxCNC Electron UI';
@@ -16,19 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
   root.appendChild(row);
   root.appendChild(logPre);
 
-  const appendLog = msg => {
+  const appendLog = function (msg) {
     logPre.textContent += msg + '\n';
   };
 
-  connectBtn.addEventListener('click', () => {
+  connectBtn.addEventListener('click', function () {
     window.electronAPI.connect();
     connectBtn.disabled = true;
-  sendBtn.addEventListener('click', () => {
+  sendBtn.addEventListener('click', function () {
     const cmd = input.value.trim();
     if (!cmd) return;
     window.electronAPI.sendCommand(cmd);
     appendLog('-> ' + cmd);
     input.value = '';
-  window.electronAPI.onMessage((event, msg) => {
+  window.electronAPI.onMessage(function (_event, msg) {
     appendLog('<- ' + msg);
 });
+
