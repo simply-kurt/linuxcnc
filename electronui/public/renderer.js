@@ -8,17 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
   const sendBtn = document.createElement('button');
   sendBtn.textContent = 'Send';
   const logPre = document.createElement('pre');
-  root.appendChild(title);
-  root.appendChild(connectBtn);
-  const row = document.createElement('div');
-  row.appendChild(input);
-  row.appendChild(sendBtn);
-  root.appendChild(row);
-  root.appendChild(logPre);
 
-  const appendLog = function (msg) {
+  root.append(title, connectBtn);
+  const row = document.createElement('div');
+  row.append(input, sendBtn);
+  root.append(row, logPre);
+
+  function appendLog(msg) {
     logPre.textContent += msg + '\n';
-  };
+  }
 
   connectBtn.addEventListener('click', function () {
     window.electronAPI.connect();
