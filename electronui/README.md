@@ -17,15 +17,20 @@ This folder contains a minimal Electron application written with **React**. It c
 
 If the window fails to load with a `module not found: react` error, ensure that
 you have installed the dependencies by running `npm install` in this directory.
+The `preload.js` script dynamically requires the React packages and exposes
+them in the browser context. Because of this the UI files do not import React
+directly; `public/renderer.js` reads `window.React` and `window.ReactDOM` which
+are populated by `preload.js` when the app starts.
 
 If you see a `renderer.js:36 Unexpected end of input` error in the devtools
 console, check that `public/renderer.js` is fully updated and contains the
 closing `});` at the end of the file. A truncated file from an old build can
 trigger this syntax error.
 
-The tests in `__tests__/renderer.test.js` verify that the UI loads correctly
-and that `public/renderer.js` ends with the required closing line. Run `npm
-test` after installing dependencies to ensure the file has not been truncated.
+The tests in `__tests__/renderer.test.js` and `__tests__/preload.test.js` verify
+that the UI files are intact and that the preload layer exposes the expected
+globals. Run `npm test` after installing dependencies to ensure the files have
+not been truncated and that React can be loaded.
 
 The UI is rendered by a small React component in `public/renderer.js`. The exposed
 `electronAPI`, `React`, and `ReactDOM` objects are provided by `preload.js` so no
