@@ -1,6 +1,14 @@
 const { contextBridge, ipcRenderer } = require('electron');
-const React = require('react');
-const ReactDOM = require('react-dom/client');
+
+let React;
+let ReactDOM;
+try {
+  React = require('react');
+  ReactDOM = require('react-dom/client');
+} catch (err) {
+  console.error('React dependencies not found. Run "npm install" in electronui/');
+  throw err;
+}
 
 contextBridge.exposeInMainWorld('electronAPI', {
   connect: () => ipcRenderer.invoke('connect'),

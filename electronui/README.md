@@ -10,10 +10,13 @@ This folder contains a minimal Electron application written with **React**. It c
    ```
 2. Start the application (no build step is required):
    ```sh
-   npm start
-   ```
-   If you update the repository, run `git pull` and `npm install` again to make
-   sure your local copy is in sync.
+  npm start
+  ```
+  If you update the repository, run `git pull` and `npm install` again to make
+  sure your local copy is in sync.
+
+If the window fails to load with a `module not found: react` error, ensure that
+you have installed the dependencies by running `npm install` in this directory.
 
 If you see a `renderer.js:36 Unexpected end of input` error in the devtools
 console, check that `public/renderer.js` is fully updated and contains the

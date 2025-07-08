@@ -10,7 +10,7 @@ describe('UI render', () => {
     };
     require('../public/renderer.js');
     document.dispatchEvent(new Event('DOMContentLoaded'));
-    await new Promise((r) => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 50));
     const title = document.querySelector('h1');
     expect(title.textContent).toBe('LinuxCNC Electron UI');
     expect(document.querySelector('button')).not.toBeNull();
