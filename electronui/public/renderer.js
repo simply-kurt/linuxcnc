@@ -1,33 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const root = document.getElementById('root');
-  const title = document.createElement('h1');
-  title.textContent = 'LinuxCNC Electron UI';
-  const connectBtn = document.createElement('button');
-  connectBtn.textContent = 'Connect';
-  const input = document.createElement('input');
-  const sendBtn = document.createElement('button');
-  sendBtn.textContent = 'Send';
-  const logPre = document.createElement('pre');
+  const { React, ReactDOM, electronAPI } = window;
+  function App() {
+    const [log, setLog] = React.useState([]);
+    const [cmd, setCmd] = React.useState('');
 
-  root.append(title, connectBtn);
-  const row = document.createElement('div');
-  row.append(input, sendBtn);
-  root.append(row, logPre);
+    React.useEffect(() => {
+      electronAPI.onMessage(function (_e, msg) {
+        setLog((l) => [...l, '<- ' + msg]);
+      });
+    }, []);
 
-  function appendLog(msg) {
-    logPre.textContent += msg + '\n';
+    function connect() {
+      electronAPI.connect();
+    }
+
+    function send() {
+      const c = cmd.trim();
+      if (!c) return;
+      electronAPI.sendCommand(c);
+      setLog((l) => [...l, '-> ' + c]);
+      setCmd('');
+    }
+    return React.createElement(
+      'div',
+      null,
+      React.createElement('h1', null, 'LinuxCNC Electron UI'),
+      React.createElement('button', { onClick: connect }, 'Connect'),
+      React.createElement(
+        'div',
+        null,
+        React.createElement('input', {
+          value: cmd,
+          onChange: (e) => setCmd(e.target.value)
+        }),
+        React.createElement('button', { onClick: send }, 'Send')
+      ),
+      React.createElement('pre', null, log.join('\n'))
+    );
   }
-
-  connectBtn.addEventListener('click', function () {
-    window.electronAPI.connect();
-    connectBtn.disabled = true;
-  sendBtn.addEventListener('click', function () {
-    const cmd = input.value.trim();
-    if (!cmd) return;
-    window.electronAPI.sendCommand(cmd);
-    appendLog('-> ' + cmd);
-    input.value = '';
-  window.electronAPI.onMessage(function (_event, msg) {
-    appendLog('<- ' + msg);
-});
-
+  const rootElem = document.getElementById('root');
+  const root = ReactDOM.createRoot(rootElem);
+  root.render(React.createElement(App));

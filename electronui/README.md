@@ -1,6 +1,6 @@
 # Electron UI for LinuxCNC
 
-This folder contains a minimal Electron application. It connects to a running LinuxCNC instance via TCP on port `5007`.
+This folder contains a minimal Electron application written with **React**. It connects to a running LinuxCNC instance via TCP on port `5007`.
 
 ## Usage
 
@@ -20,4 +20,7 @@ console, check that `public/renderer.js` is fully updated and contains the
 closing `});` at the end of the file. A truncated file from an old build can
 trigger this syntax error.
 
-The UI lets you connect and send manual commands to LinuxCNC. Incoming messages are shown in a small log area.
+The UI is rendered by a small React component in `public/renderer.js`. The exposed
+`electronAPI`, `React`, and `ReactDOM` objects are provided by `preload.js` so no
+bundling step is necessary. The single `App` component displays a connect button,
+an input field with a send button, and a log of messages from LinuxCNC.
