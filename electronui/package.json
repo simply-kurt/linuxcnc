@@ -1,11 +1,10 @@
 {
   "name": "electronui",
   "version": "1.0.0",
-  "description": "",
+  "description": "Minimal Electron UI for LinuxCNC",
   "main": "main.js",
   "scripts": {
     "test": "jest",
-    "build": "browserify src/index.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -o public/renderer.js",
     "start": "electron --no-sandbox ."
   },
   "keywords": [],
@@ -18,13 +17,6 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.27.2",
-    "@babel/core": "^7.27.4",
-    "@babel/preset-env": "^7.27.4",
-    "@babel/preset-react": "^7.27.1",
-    "babel-jest": "^30.0.4",
-    "babelify": "^10.0.0",
-    "browserify": "^17.0.1",
     "jest": "^30.0.4",
     "jest-environment-jsdom": "^30.0.4",
     "jsdom": "^26.1.0"
