@@ -41,3 +41,4 @@ document.addEventListener('DOMContentLoaded', function () {
   const rootElem = document.getElementById('root');
   const root = ReactDOM.createRoot(rootElem);
   root.render(React.createElement(App));
+});

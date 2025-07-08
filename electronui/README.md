@@ -23,6 +23,10 @@ console, check that `public/renderer.js` is fully updated and contains the
 closing `});` at the end of the file. A truncated file from an old build can
 trigger this syntax error.
 
+The tests in `__tests__/renderer.test.js` verify that the UI loads correctly
+and that `public/renderer.js` ends with the required closing line. Run `npm
+test` after installing dependencies to ensure the file has not been truncated.
+
 The UI is rendered by a small React component in `public/renderer.js`. The exposed
 `electronAPI`, `React`, and `ReactDOM` objects are provided by `preload.js` so no
 bundling step is necessary. The single `App` component displays a connect button,

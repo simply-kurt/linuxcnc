@@ -16,4 +16,13 @@ describe('UI render', () => {
     expect(document.querySelector('button')).not.toBeNull();
     expect(window.electronAPI.onMessage).toHaveBeenCalled();
   });
+
+  test('renderer script ends with closing listener', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const content = fs
+      .readFileSync(path.join(__dirname, '..', 'public', 'renderer.js'), 'utf8')
+      .trim();
+    expect(content.endsWith('});')).toBe(true);
+  });
 });
