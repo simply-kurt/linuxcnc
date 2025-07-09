@@ -40,6 +40,17 @@ globals. They also check that a helpful message is printed if the React
 dependencies are missing. Run `npm test` after installing dependencies to ensure
 the files have not been truncated and that React can be loaded.
 
+The HTML page now contains a minimal Content Security Policy meta tag to silence
+Electron's security warning. A regression test checks for this tag so it doesn't
+accidentally get removed.
+
+### WSL2 notes
+
+When debugging on Windows with WSL2, run `npm start` from a WSL2 shell so that
+Electron can launch correctly. WSLg (or an X server) must be available for the
+GUI to appear. All paths in the project are resolved with `path.join()` so the
+app works the same under Linux and Windows.
+
 The UI is rendered by a small React component in `public/renderer.js`. The exposed
 `electronAPI`, `React`, and `ReactDOM` objects are provided by `preload.js` so no
 bundling step is necessary. The single `App` component displays a connect button,

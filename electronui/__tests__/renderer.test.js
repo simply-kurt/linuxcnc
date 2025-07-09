@@ -25,4 +25,16 @@ describe('UI render', () => {
       .trim();
     expect(content.endsWith('});')).toBe(true);
   });
+
+  test('index.html contains a basic CSP', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const html = fs.readFileSync(
+      path.join(__dirname, '..', 'public', 'index.html'),
+      'utf8'
+    );
+    expect(html).toMatch(
+      /<meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'self'"\s*\/>/
+    );
+  });
 });
