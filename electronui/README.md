@@ -10,10 +10,17 @@ This folder contains a minimal Electron application written with **React**. It c
    ```
 2. Start the application (no build step is required):
    ```sh
-  npm start
+ npm start
   ```
   If you update the repository, run `git pull` and `npm install` again to make
   sure your local copy is in sync.
+
+### Troubleshooting
+
+If Electron shows an `Unable to load preload script` error or complains about
+`module not found: react`, the React dependencies are missing. Make sure you ran
+`npm install` **inside** the `electronui` directory. The preload script loads
+React and ReactDOM dynamically; without these packages the UI cannot render.
 
 If the window fails to load with a `module not found: react` error, ensure that
 you have installed the dependencies by running `npm install` in this directory.
@@ -29,8 +36,9 @@ trigger this syntax error.
 
 The tests in `__tests__/renderer.test.js` and `__tests__/preload.test.js` verify
 that the UI files are intact and that the preload layer exposes the expected
-globals. Run `npm test` after installing dependencies to ensure the files have
-not been truncated and that React can be loaded.
+globals. They also check that a helpful message is printed if the React
+dependencies are missing. Run `npm test` after installing dependencies to ensure
+the files have not been truncated and that React can be loaded.
 
 The UI is rendered by a small React component in `public/renderer.js`. The exposed
 `electronAPI`, `React`, and `ReactDOM` objects are provided by `preload.js` so no
