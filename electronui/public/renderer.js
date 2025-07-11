@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // React and ReactDOM are added to the window by preload.js
   const { React, ReactDOM, electronAPI } = window;
   function App() {
     const [log, setLog] = React.useState([]);
@@ -41,3 +42,4 @@ document.addEventListener('DOMContentLoaded', function () {
   const rootElem = document.getElementById('root');
   const root = ReactDOM.createRoot(rootElem);
   root.render(React.createElement(App));
+});

@@ -16,4 +16,25 @@ describe('UI render', () => {
     expect(document.querySelector('button')).not.toBeNull();
     expect(window.electronAPI.onMessage).toHaveBeenCalled();
   });
+
+  test('renderer script ends with closing listener', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const content = fs
+      .readFileSync(path.join(__dirname, '..', 'public', 'renderer.js'), 'utf8')
+      .trim();
+    expect(content.endsWith('});')).toBe(true);
+  });
+
+  test('index.html contains a basic CSP', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const html = fs.readFileSync(
+      path.join(__dirname, '..', 'public', 'index.html'),
+      'utf8'
+    );
+    expect(html).toMatch(
+      /<meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'self'"\s*\/>/
+    );
+  });
 });
